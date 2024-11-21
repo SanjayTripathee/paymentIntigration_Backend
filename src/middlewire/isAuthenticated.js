@@ -1,4 +1,4 @@
-import { seceretekey } from "../../constant.js";
+import { seceretekey } from "../../constant.js";//
 import jwt from "jsonwebtoken";
 import expressAsyncHandler from "express-async-handler";
 //isAuthenticated means it check token valid or not

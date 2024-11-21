@@ -1,5 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
-import { WebUser } from "../schema/model.js";
+import { WebUser } from "../schema/model";
+
 
 //authorization =>to give permission for specefic person to see or change content
 const authorized = (roles) => {
