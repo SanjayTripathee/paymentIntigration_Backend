@@ -10,6 +10,6 @@ webUserRouter.route("/").post(createWebUserController);
 
 webUserRouter.route("/verify-email").patch(verifyEmail);
 
-webUserRouter.route("/login").post(loginUser);
+webUserRouter.route("/log-in").post(loginUser);
 
 export default webUserRouter;
