@@ -3,8 +3,8 @@ import expressAsyncHandler from "express-async-handler";
 import { sendMail } from "../utils/sendMail.js";//
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { seceretekey } from "../../constant.js";//
 import { WebUser } from "../schema/model.js";
+import { seceretekey } from "../../constant.js";
 
 //create /=>createWebUserController and verifyEmail both router and controller is used for register account i.e singin
 export const createWebUserController = expressAsyncHandler(

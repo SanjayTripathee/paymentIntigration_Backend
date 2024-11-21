@@ -1,6 +1,6 @@
-import { seceretekey } from "../../constant.js";//
 import jwt from "jsonwebtoken";
 import expressAsyncHandler from "express-async-handler";
+import { seceretekey } from "../../constant";
 //isAuthenticated means it check token valid or not
 const isAuthenticated = expressAsyncHandler(async (req, res, next) => {
   let tokenString = req.headers.authorization; //to get token
