@@ -5,6 +5,7 @@ import errorMiddleware from "./src/middlewire/errorMiddlewire.js";
 import notFoundMiddleware from "./src/middlewire/notFoundMiddleware.js";
 import webUserRouter from "./src/routes/webUserRouter.js";
 import productRouter from "./src/routes/productRouter.js";
+import fileRouter from "./src/routes/fileRouter.js";
 
 
 
@@ -19,7 +20,7 @@ expressApp.listen(8000, () => {
 
 expressApp.use("/web-users", webUserRouter);//write kabab case on sending part ok
 expressApp.use("/product", productRouter);
-// expressApp.use("/file", fileRouter);
+expressApp.use("/file", fileRouter);
 
 
 expressApp.use("*", notFoundMiddleware); //! always put it after all route is decleare ..put down after route ok...
