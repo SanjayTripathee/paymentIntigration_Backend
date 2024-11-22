@@ -1,7 +1,6 @@
 import { Router } from "express";
-
-// import upload from "../middleware/uploadFile.js";
-// import { crateFile, crateMultipleFile } from "../controller/fileController.js";
+import { crateFile, crateMultipleFile } from "../controller/fileController.js";
+import upload from "../middlewire/uploadFile.js";
 
 let fileRouter = Router();
 
