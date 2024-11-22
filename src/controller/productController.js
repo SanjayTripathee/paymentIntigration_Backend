@@ -1,5 +1,5 @@
 import expressAsyncHandler from "express-async-handler";
-import { Product } from "../schema/model";
+import { Product } from "../schema/model.js";
 
 export const crateProductController = expressAsyncHandler(
   async (req, res, next) => {

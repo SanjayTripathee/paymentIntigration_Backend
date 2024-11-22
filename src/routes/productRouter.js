@@ -1,6 +1,11 @@
 import { Router } from "express";
-import { crateProductController, deleteProductController, readAllProductController, readSpecificProductController, updateProductController } from "../controller/productController";
-
+import {
+  crateProductController,
+  deleteProductController,
+  readAllProductController,
+  readSpecificProductController,
+  updateProductController,
+} from "../controller/productController.js";
 
 let productRouter = Router();
 productRouter
