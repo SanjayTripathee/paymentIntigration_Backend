@@ -1,10 +1,10 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import asyncErrorHandler from "../middlewire/asyncErrorHandler.js";
 import { Payment } from "../schema/model.js";
+import expressAsyncHandler from "express-async-handler";
 
 // Initiate payment
-export const processPayment = asyncErrorHandler(async (req, res) => {
+export const processPayment = expressAsyncHandler(async (req, res) => {
   const { itemId, totalPrice, name } = req.body;
 
   const formData = {
@@ -77,9 +77,7 @@ export const KhaltiResponse = async (req, res) => {
     res.redirect(`${process.env.WEBSITE_URL}/order/${purchase_order_id}`);
   } catch (error) {
     console.error("Error processing Khalti response:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Error processing payment" });
+    res.status(500).json({ success: false, message: "Error processing payment" });
   }
 };
 
@@ -110,9 +108,7 @@ export const verifyKhaltiPayment = async (pidx) => {
 // Helper: Add payment to database
 export const addPayment = async (data) => {
   try {
-    const existingPayment = await Payment.findOne({
-      transactionId: data.transactionId,
-    });
+    const existingPayment = await Payment.findOne({ transactionId: data.transactionId });
     if (existingPayment) {
       console.log("Payment already exists");
       return;
