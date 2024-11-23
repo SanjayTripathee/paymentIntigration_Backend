@@ -8,10 +8,10 @@ import isAuthenticated from "../middlewire/isAuthenticated.js";
 
 const router = express.Router();
 
-router.post("/payment/process", processPayment);
+router.post("/process", processPayment);
 
-router.get("/payment/complete", KhaltiResponse);
+router.get("/complete", KhaltiResponse);
 
-router.get("/payment/status/:id", isAuthenticated, getPaymentStatus);
+router.get("/status/:id", isAuthenticated, getPaymentStatus);
 
 export default router;
