@@ -4,35 +4,37 @@ import { Payment } from "../schema/model.js";
 import expressAsyncHandler from "express-async-handler";
 
 // Initiate payment
+
 export const processPayment = expressAsyncHandler(async (req, res) => {
-  const { itemId, totalPrice, name } = req.body;
+  // const { itemId, totalPrice, name } = req.body;
 
   const formData = {
-    return_url: `${req.protocol}://${req.get("host")}/api/v1/payment/complete`,
-    website_url: process.env.WEBSITE_URL,
-    amount: totalPrice * 100, // Convert to paisa
-    purchase_order_id: `oid${uuidv4()}`,
-    order_id: `${itemId}${uuidv4()}`,
-    purchase_order_name: name,
+    return_url: `http://localhost:8000/payment/complete`,
+    website_url:" https://localhost:5173",
+    amount: 10 * 100, // Convert to paisa
+    purchase_order_id: "new",
+    order_id: "new",
+    purchase_order_name: "ramro",
   };
 
   const config = {
     headers: {
-      Authorization: `Key ${process.env.KHALTI_KEY}`,
+      Authorization: `Key 7fcbdf9db037453ab2f4c952ae1d316f`,
       "Content-Type": "application/json",
     },
   };
 
   try {
     const response = await axios.post(
-      `${process.env.KHALTI_GATEWAY_URL}/api/v2/epayment/initiate/`,
+      "https://a.khalti.com/api/v2/epayment/initiate/",
       formData,
       config
     );
 
     res.status(200).json({
-      ...formData,
+      
       paymentMethod: "Khalti",
+      message:'Success',
       response: response.data,
     });
   } catch (error) {
@@ -72,9 +74,14 @@ export const KhaltiResponse = async (req, res) => {
       refundAmt: (paymentInfo.refund_amount || 0).toString(),
       txnDate: new Date().toISOString(),
     };
-
+//  res.redirect("http://localhost:5173");
+res.status(200).json({
+  success: true,
+  message: "Payment verified successfully",
+  paymentData,
+})
     await addPayment(paymentData);
-    res.redirect(`${process.env.WEBSITE_URL}/order/${purchase_order_id}`);
+    // res.redirect(`${process.env.WEBSITE_URL}/order/${purchase_order_id}`);
   } catch (error) {
     console.error("Error processing Khalti response:", error);
     res.status(500).json({ success: false, message: "Error processing payment" });
@@ -85,7 +92,7 @@ export const KhaltiResponse = async (req, res) => {
 export const verifyKhaltiPayment = async (pidx) => {
   const headers = {
     Accept: "application/json",
-    Authorization: `Key ${process.env.KHALTI_KEY}`,
+    Authorization: `Key 7fcbdf9db037453ab2f4c952ae1d316f`,
     "Content-Type": "application/json",
   };
 
@@ -93,7 +100,7 @@ export const verifyKhaltiPayment = async (pidx) => {
 
   try {
     const response = await axios.post(
-      `${process.env.KHALTI_GATEWAY_URL}/api/v2/epayment/lookup/`,
+      `https://a.khalti.com/api/v2/epayment/lookup/`,
       body,
       { headers }
     );
