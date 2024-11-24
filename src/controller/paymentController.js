@@ -10,16 +10,17 @@ export const processPayment = expressAsyncHandler(async (req, res) => {
 
   const formData = {
     return_url: `http://localhost:8000/payment/complete`,
-    website_url:" https://localhost:5173",
+    website_url: " https://localhost:5173",
     amount: 10 * 100, // Convert to paisa
     purchase_order_id: "new",
     order_id: "new",
-    purchase_order_name: "ramro",
+    purchase_order_name: "sanjay",
   };
+
 
   const config = {
     headers: {
-      Authorization: `Key 7fcbdf9db037453ab2f4c952ae1d316f`,
+      Authorization: `Key ${process.env.KHALTI_KEY}`,
       "Content-Type": "application/json",
     },
   };
@@ -32,9 +33,8 @@ export const processPayment = expressAsyncHandler(async (req, res) => {
     );
 
     res.status(200).json({
-      
       paymentMethod: "Khalti",
-      message:'Success',
+      message: "Success",
       response: response.data,
     });
   } catch (error) {
@@ -74,17 +74,19 @@ export const KhaltiResponse = async (req, res) => {
       refundAmt: (paymentInfo.refund_amount || 0).toString(),
       txnDate: new Date().toISOString(),
     };
-//  res.redirect("http://localhost:5173");
-res.status(200).json({
-  success: true,
-  message: "Payment verified successfully",
-  paymentData,
-})
+    //  res.redirect("http://localhost:5173");
+    res.status(200).json({
+      success: true,
+      message: "Payment verified successfully",
+      paymentData,
+    });
     await addPayment(paymentData);
     // res.redirect(`${process.env.WEBSITE_URL}/order/${purchase_order_id}`);
   } catch (error) {
     console.error("Error processing Khalti response:", error);
-    res.status(500).json({ success: false, message: "Error processing payment" });
+    res
+      .status(500)
+      .json({ success: false, message: "Error processing payment" });
   }
 };
 
@@ -92,7 +94,7 @@ res.status(200).json({
 export const verifyKhaltiPayment = async (pidx) => {
   const headers = {
     Accept: "application/json",
-    Authorization: `Key 7fcbdf9db037453ab2f4c952ae1d316f`,
+    Authorization: `Key ${process.env.KHALTI_KEY}`,
     "Content-Type": "application/json",
   };
 
@@ -115,7 +117,9 @@ export const verifyKhaltiPayment = async (pidx) => {
 // Helper: Add payment to database
 export const addPayment = async (data) => {
   try {
-    const existingPayment = await Payment.findOne({ transactionId: data.transactionId });
+    const existingPayment = await Payment.findOne({
+      transactionId: data.transactionId,
+    });
     if (existingPayment) {
       console.log("Payment already exists");
       return;
