@@ -17,7 +17,6 @@ export const processPayment = expressAsyncHandler(async (req, res) => {
     purchase_order_name: "sanjay",
   };
 
-
   const config = {
     headers: {
       Authorization: `Key ${process.env.KHALTI_KEY}`,
