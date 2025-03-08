@@ -1,10 +1,5 @@
 {
-    "version": 2,
-    "builds": [
-      { "src": "myProjectBackend/index.js", "use": "@vercel/node" }
-    ],
-    "routes": [
-      { "src": "/myProjectBackend/(.*)", "dest": "/myProjectBackend/index.js" }
-    ]
-  }
-  
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
