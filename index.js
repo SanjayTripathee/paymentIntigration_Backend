@@ -43,7 +43,7 @@ import router from "./src/routes/paymentRoute.js";
 import fileRouter from "./src/routes/fileRouter.js";
 
 const expressApp = express();
-expressApp.use(cors());
+expressApp.use(cors()); //! cors is enable so that we could hit api from browser(it is always put on top)
 expressApp.use(json());
 
 connectToMongoDb(); // Connect to DB before handling requests
