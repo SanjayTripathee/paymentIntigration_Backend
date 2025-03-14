@@ -29,8 +29,6 @@
 
 // expressApp.use(errorMiddleware);
 
-//
-
 
 import cors from "cors";
 import express, { json } from "express";
