@@ -30,6 +30,8 @@
 // expressApp.use(errorMiddleware);
 
 
+
+//
 import cors from "cors";
 import express, { json } from "express";
 import connectToMongoDb from "./src/connectDB/connectToMongooDb.js";
@@ -52,9 +54,7 @@ expressApp.use("/payment", router);
 expressApp.use("/file", fileRouter);
 expressApp.use(express.static("./public"));
 expressApp.get("/", (req, res) => {
-  res.status(200).json({
-    message: "Welcome to E-commerce API",
-  });
+  res.status("Welcome to E-commerce API")
 });
 
 expressApp.use("*", notFoundMiddleware);
