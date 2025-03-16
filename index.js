@@ -51,6 +51,11 @@ expressApp.use("/product", productRouter);
 expressApp.use("/payment", router);
 expressApp.use("/file", fileRouter);
 expressApp.use(express.static("./public"));
+expressApp.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Welcome to E-commerce API",
+  });
+});
 
 expressApp.use("*", notFoundMiddleware);
 expressApp.use(errorMiddleware);
